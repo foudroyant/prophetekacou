@@ -1,0 +1,50 @@
+<mat-toolbar color="primary">
+    <span>Prophète Kacou</span>
+</mat-toolbar>
+
+<mat-card class="container">
+    <img mat-card-image src="./assets/logo.png">
+    <mat-card-title>Prophète Kacou Philippe</mat-card-title>
+    <mat-card-content>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, sapiente id? Officiis soluta sunt molestiae iusto numquam eligendi repellat? Voluptatum magni eaque expedita recusandae aperiam, dolor quas dignissimos architecto obcaecati?</p>
+    </mat-card-content>
+    <mat-card-actions align="start">
+      <button mat-button (click)="isLaunched = true">LE LIVRE</button>
+    </mat-card-actions>
+  </mat-card>
+  
+  <div class="demo-sidenav-area" *ngIf="isLaunched">
+    <mat-sidenav-container [hasBackdrop]="hasBackdrop">
+      <mat-sidenav #start [mode]="mode"
+                   [fixedInViewport]="fixed" [fixedTopGap]="fixedTop" [fixedBottomGap]="fixedBottom">
+        
+        <mat-list>
+            <div mat-subheader>Prédications</div>
+            <mat-list-item *ngFor="let item of database"
+            (click)="start.close() && getVersets(item)"
+            class="list-item">
+              {{item.chapitre}} : {{item.titre}}
+            </mat-list-item>
+          </mat-list>
+      </mat-sidenav>
+  
+      <mat-sidenav-content>
+        <mat-toolbar>
+            <mat-toolbar-row>
+                <button mat-button (click)="start.toggle(undefined, 'mouse')">Prédications</button>
+                <button mat-raised-button (click)="isLaunched = false">Langues</button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <div class="demo-sidenav-content">
+            <h1>{{predication.chapitre}} : {{predication.titre}}</h1>
+            <h5>{{predication.sous_titre}}</h5>
+
+            <p *ngFor="let verset of lesverset">
+                {{verset.numero}} {{verset.contenu}}
+            </p>
+            <strong> {{predication.similar_sermon}} </strong>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+  
